@@ -7,8 +7,13 @@
  */
 int main(void)
 {
-	/* This is a comment */
-	printf("Programming is like building a multilingual puzzle\n");
-	return (0);
+    /* This is a comment */
+    char *message = "Programming is like building a multilingual puzzle";
+    
+    /* Display the message using the puts function */
+    puts(message);
+
+    /* Return 0 to indicate success */
+    return (0);
 }
 
