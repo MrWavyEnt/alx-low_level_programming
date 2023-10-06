@@ -7,13 +7,15 @@
  */
 int main(void)
 {
-	char *message = "Programming is like building a multilingual puzzle";
+    char *message = "Programming is like building a multilingual puzzle";
 
-	/* Display the message using the puts function */
-	puts(message);
+    /* Display the message using the puts function */
+    puts("[Got]");
+    puts(message);
+    printf("(%lu chars long)\n", strlen(message));
 
-	/* Return 0 to indicate success */
-	return (0);
+    /* Return 0 to indicate success */
+    return (0);
 }
 
 
