@@ -1,10 +1,14 @@
-#Include <stdio.h>
+#include <stdio.h>
+
 /**
- * main - this is the prinf put function
- * Return: 0
+ * main - Entry point
+ *
+ * Return: Always 0 (Success)
  */
 int main(void)
 {
-	 print("with proper grammer, but the outcome is a piece of art\n")
-		 return (0)
+	/* This is a comment */
+	printf("Programming is like building a multilingual puzzle\n");
+	return (0);
 }
+
