@@ -7,13 +7,13 @@
  */
 int main(void)
 {
-    /* This is a comment */
-    char *message = "Programming is like building a multilingual puzzle";
-    
-    /* Display the message using the puts function */
-    puts(message);
+	char *message = "Programming is like building a multilingual puzzle";
 
-    /* Return 0 to indicate success */
-    return (0);
+	/* Display the message using the puts function */
+	puts(message);
+
+	/* Return 0 to indicate success */
+	return (0);
 }
+
 
