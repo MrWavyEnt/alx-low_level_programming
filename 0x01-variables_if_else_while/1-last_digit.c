@@ -1,31 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-
+/* more headers goes there */
+#include<stdio.h>
+/* betty style doc for function main goes there */
+/**
+ *  main - main function 
+ *
+ *  Return: always 0 
+ */
 int main(void)
-{
-    int n;
+{	
+	int n;
+	int m;
 
-    srand(time(0)); // Seed the random number generator with the current time
-    n = rand(); // Generate a random number and store it in n
+	srand(time(0));
+	n = rand() - RAND_MAX / 2;
+	/*your code goes there */
+	m = n % 10;
+	if (m > 5)
+		printf("Last digit of %d is %d and is greater than 5", n, m);
+	else if (m == 0)
+		printf("Last digit of %d is %d is 0", 1, m);
+	else if (m < 6 && m != 0)
+		printf("Last digit of %d is %d and is less than 6 and not 0", n, m):
+	printf("\n");
 
-    int lastDigit = n % 10; // Get the last digit of n
-
-    printf("Last digit of %d is %d and is ", n, lastDigit);
-
-    if (lastDigit > 5)
-    {
-        printf("greater than 5\n");
-    }
-    else if (lastDigit == 0)
-    {
-        printf("0\n");
-    }
-    else
-    {
-        printf("less than 6 and not 0\n");
-    }
-
-    return 0;
+	return (0);
 }
-
