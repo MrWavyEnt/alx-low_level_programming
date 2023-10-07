@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Check if the CFILE environment variable is set
+if [ -z "$CFILE" ]; then
+  echo "Error: CFILE environment variable is not set."
+  exit 1
+fi
+
+# Check if the C file exists
+if [ ! -e "$CFILE" ]; then
+  echo "Error: C file '$CFILE' does not exist."
+  exit 1
+fi
+
+# Extract the filename without extension
+FILENAME=$(basename "$CFILE")
+FILENAME_NOEXT="${FILENAME%.*}"
+
+# Define the output assembly file name
+ASSEMBLY_FILE="$FILENAME_NOEXT.s"
+
+# Compile the C code to assembly using GCC
+gcc -S -masm=intel "$CFILE" -o "$ASSEMBLY_FILE"
+
+# Check if the compilation was successful
+if [ $? -eq 0 ]; then
+  echo "Assembly code generated and saved in '$ASSEMBLY_FILE'."
+else
+  echo "Error: Compilation to assembly failed."
+fi
+
