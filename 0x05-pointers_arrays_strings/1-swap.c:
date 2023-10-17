@@ -1,0 +1,6 @@
+wap.c:9:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘void’
+    9 | void swap_int(int *a, int *b)
+      | ^~~~
+1-swap.c:16: error: expected ‘{’ at end of input
+   16 | }
+      |
