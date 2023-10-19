@@ -1,34 +1,23 @@
 #include "main.h"
 
 /**
-  *_strcat - main function of the prototype
-  *
-  * @src: Concatenation parameter
-  *
-  * @dest: Concatenation parameter
-  *
-  * Return: dest
-  */
+ * _strncat - the function name
+ * @dest: function parameter one
+ * @*src: parameter two
+ * @n: parameter three
+ * Return: dest
+ */
 
-char *_strcat(char *dest, char *src)
+char *_strncat(char *dest, char *src, int n)
 {
-int k, r;
+int len = strlen(dest);
+int i;
 
-k = 0;
-r = 0;
-
-while (dest[k] != '\0')
+for (i =0; i < n && *src != '\0'; i++)
 {
-k++;
+dest[len +1] = *src;
+src++;
 }
-
-while (src[r] != '\0')
-{
-dest[k] = src[r];
-k++;
-r++;
-}
-dest[k] = '\0';
+dest[len + 1] = '\0';
 return (dest);
 }
-
