@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
-  *_strcat - function name
+  *_strcat -concatenates two strings
   *@dest: parameter one
   * @src: parameter two
   * Return: dest
@@ -9,18 +9,23 @@
 
 char *_strcat(char *dest, char *src)
 {
-int i, j;
+int i; 
+int j;
 
 i = 0;
-
-/*find the size of dest array*/
-while (dest[i])
+while (dest[i] != '\0')
+{
 i++;
+}
+j = 0;
 
-/* interate through each src array value without the null byte*/
-for (j = 0; src[j] ; j++)
-/*append src[c2] to dest[c] while overwritting the nullbyte in dest*/
-dest[i++] = src[j];
+while (src[j] != '\0')
+{
+dest[i] = src[j];
+i++;
+j++;
+}
 
+dest[i] = '\0';
 return (dest);
 }
