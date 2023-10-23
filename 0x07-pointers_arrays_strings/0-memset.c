@@ -1,6 +1,6 @@
 #include "main.h"
+
 /**
-  
  * _memset - main function of the prototype
  * @b: The value used to fill the memory
  * @s: Function paramater
