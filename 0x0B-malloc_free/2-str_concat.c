@@ -1,5 +1,12 @@
 #include <stdlib.h>
 
+/**
+ * str_cncat - Write a function that concatenates two strings
+ * @param s1: Frist input string (can be NULL)
+ * @param s2: Seconf input string (can be NULL)
+ * @RETURN: pointer to the concatenated string or NULL on faliure.
+ */
+
 char *str_concat(char *s1, char *s2)
 {
 	char *concatenated;
