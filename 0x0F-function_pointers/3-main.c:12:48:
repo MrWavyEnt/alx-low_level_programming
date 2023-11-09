@@ -1,0 +1,5 @@
+nt main(int __attribute__((__unused__)) argc, *char *argv[])
+      |                                                ^
+3-main.c:19:10: error: unknown escape sequence: '\m' [-Werror]
+   19 |   printf("Error\m");
+      |          ^~~~~~~~~cle
