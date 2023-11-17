@@ -1,4 +1,6 @@
 #include "list.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
  * list_len - find the length of a list
