@@ -4,14 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 /**
- * dtruct listint_t - self referncial struct
+ * struct listint_t - self referncial struct
  * for creating node of a singly linked list
  *
- * @n integer data
+ * @n: integer data
  * @next: self referencial pointer
  * pointer to the next node of list
  */
-typedef struct listint_s
+typedef struct listint_t
 {
 	int n;
 	struct listint_s *next;
