@@ -14,14 +14,14 @@ int append_text_to_file(const char *filename, char *text_content)
 	if
 		(!filename)
 			return (-1);
-	
+
 	y = open(filename, O_WRONLY | O_APPEND);
 	if (y == -1)
 		return (-1);
 
 	if (text_content)
 	{
-	for(newletters = 0;text_content[newletters];newletters++)
+	for (newletters = 0; text_content[newletters]; newletters++)
 		;
 
 		x = write(y, text_content, newletters);
