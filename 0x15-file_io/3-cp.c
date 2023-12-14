@@ -76,6 +76,6 @@ void check_IO_stat(int stat, int fd, char *filename, char mode)
 	else if (mode == 'W' && stat == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
-		exit(99);
+		exit(98);
 	}
 }
