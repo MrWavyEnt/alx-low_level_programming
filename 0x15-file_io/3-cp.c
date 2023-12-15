@@ -1,81 +1,74 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <sys/types.h>
+#include "main.h"
 #include <fcntl.h>
 #include <unistd.h>
-
-void check_IO_stat(int stat, int fd, char *filename, char mode);
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
- * main - function copies the content of one file to another.
- * @argc: The argument count
- * @argv: The arguments passed
- * Return: 0 on success, exit otherwise
- */
-int main(int argc, char *argv[])
+ * __exit - prints error messages and exits with exit value
+ * @error: num is either exit value or file descriptor
+ * @s: str is a name, either of the two filenames
+ * @fd: file descriptor
+ * Return: 0 on success
+ **/
+int __exit(int error, char *s, int fd)
 {
-	int src, dest, n_read, wrote, close_src, close_dest;
-	unsigned int node = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
-	char buffer[1024];
-
-	if (argc != 3)
+	switch (error)
 	{
+	case 97:
 		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
-		exit(97);
+		exit(error);
+	case 98:
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", s);
+		exit(error);
+	case 99:
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", s);
+		exit(error);
+	case 100:
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
+		exit(error);
+	default:
+		return (0);
 	}
-	src = open(argv[1], O_RDONLY);
-	check_IO_stat(src, -1, argv[1], 'O');
-
-	dest = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, node);
-	if (dest == -1)
-	{
-		check_IO_stat(dest, -1, argv[2], 'O');
-	}
-
-	do {
-		n_read = read(src, buffer, sizeof(buffer));
-		if (n_read == -1)
-			check_IO_stat(n_read, -1, argv[1], 'O');
-
-		wrote = write(dest, buffer, n_read);
-		if (wrote == -1)
-			check_IO_stat(wrote, -1, argv[2], 'W');
-	} while (n_read == sizeof(buffer));
-
-	close_src = close(src);
-	check_IO_stat(close_src, src, NULL, 'C');
-
-	close_dest = close(dest);
-	check_IO_stat(close_dest, dest, NULL, 'C');
-
-	return (0);
 }
 
 /**
- * check_IO_stat - function checks if a file can be opened or closed
- * @stat: result of the file operation (return value)
- * @filename: name of file
- * @mode: closing ('C'), opening ('O'), or writing ('W')
- * @fd: file descriptor
- * Return: void
+ * main - copies one file to another
+ * @argc: should be 3 (./a.out copyfromfile copytofile)
+ * @argv: first is file to copy from (fd_1), second is file to copy to (fd_2)
+ * Return: 0 (success), 97-100 (exit value errors)
  */
-
-void check_IO_stat(int stat, int fd, char *filename, char mode)
+int main(int argc, char *argv[])
 {
-	if (mode == 'C' && stat == -1)
+	int fd_1, fd_2, n_read, n_wrote;
+	char buffer[1024];
+
+	if (argc != 3)
+		__exit(97, NULL, 0);
+
+	/*sets file descriptor for copy-to file*/
+	fd_2 = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY, 0664);
+	if (fd_2 == -1)
+		__exit(99, argv[2], 0);
+
+	/*sets file descriptor for copy-from file*/
+	fd_1 = open(argv[1], O_RDONLY);
+	if (fd_1 == -1)
+		__exit(98, argv[1], 0);
+
+	/*reads original file as long as there's more than 0 to read*/
+	/*copies/writes contents into new file */
+	while ((n_read = read(fd_1, buffer, 1024)) != 0)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
-		exit(100);
+		if (n_read == -1)
+			__exit(98, argv[1], 0);
+
+		n_wrote = write(fd_2, buffer, n_read);
+		if (n_wrote == -1)
+			__exit(99, argv[2], 0);
 	}
-	else if (mode == 'O' && stat == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
-				exit(98);
-	}
-	else if (mode == 'W' && stat == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
-		exit(99);
-	}
+
+	close(fd_2) == -1 ? __exit(100, NULL, fd_2) : close(fd_2);
+	close(fd_1) == -1 ? __exit(100, NULL, fd_1) : close(fd_1);
+	return (0);
 }
